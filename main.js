@@ -26,6 +26,7 @@ for (let i = 0; i < cards.length; i++) {
   const card = cards[i];
   card.style.zIndex = cards.length - i - 1;
   card.style.rotate = `${Math.random() * 6 - 3}deg`;
+  card.querySelector(".cardback h1").textContent = i + 1;
 
   card.addEventListener("click", () => {
     if (card !== cards[index]) {
@@ -48,6 +49,7 @@ async function discard() {
   flipped = false;
 
   cards[index].style.transform = "translateX(-300px)";
+  forward.style.transform = "translateX(20px)";
   await delay(200);
 
   for (let i = 0; i < cards.length; i++) {
@@ -59,6 +61,7 @@ async function discard() {
   }
 
   cards[index].style.transform = "translateX(0px)";
+  forward.style.transform = "translateX(0px)";
   await delay(200);
 
   index = mod(index + 1, cards.length);
@@ -78,6 +81,7 @@ async function retrieve() {
   }
 
   index = mod(index - 1, cards.length);
+  back.style.transform = "translateX(-20px)";
   cards[index].style.transform = "translateX(300px)";
   await delay(200);
 
@@ -91,7 +95,7 @@ async function retrieve() {
   }
 
   cards[index].style.transform = "translateX(0px)";
-
+  back.style.transform = "translateX(0px)";
   await delay(200);
 
   debounce = true;
@@ -119,19 +123,3 @@ async function flip() {
 
 forward.addEventListener("click", () => discard());
 back.addEventListener("click", () => retrieve());
-
-// function reset() {
-//   container.style.backgroundPosition = "0%";
-//   container.style.transition = "none";
-// }
-
-// function scroll() {
-//   container.style.transition = "background-position 2s linear";
-//   container.style.backgroundPosition = "10%";
-// }
-
-// scroll();
-// setInterval(() => {
-//   scroll();
-//   reset();
-// }, 2000);
