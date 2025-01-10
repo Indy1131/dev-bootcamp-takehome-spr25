@@ -1,9 +1,7 @@
 const carousel = document.querySelector(".carousel");
 
-const controls = document.querySelector(".controls");
-const back = controls.querySelector("#back");
-const forward = controls.querySelector("#forward");
-const flipButton = controls.querySelector("#flip");
+const back = carousel.querySelector("#back");
+const forward = carousel.querySelector("#forward");
 
 const cards = carousel.querySelectorAll(".card");
 
@@ -27,6 +25,14 @@ for (let i = 0; i < cards.length; i++) {
   const card = cards[i];
   card.style.zIndex = cards.length - i - 1;
   card.style.rotate = `${Math.random() * 6 - 3}deg`;
+
+  card.addEventListener("click", () => {
+    if (card !== cards[index]) {
+      return;
+    }
+
+    flip();
+  });
 }
 // controls.style.zIndex = cards.length;
 
@@ -112,4 +118,3 @@ async function flip() {
 
 forward.addEventListener("click", () => discard());
 back.addEventListener("click", () => retrieve());
-flipButton.addEventListener("click", () => flip());
