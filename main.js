@@ -1,10 +1,14 @@
 const carousel = document.querySelector(".carousel");
-const back = document.querySelector("#back");
-const forward = document.querySelector("#forward");
+
+const controls = document.querySelector(".controls");
+const back = controls.querySelector("#back");
+const forward = controls.querySelector("#forward");
+const flipButton = controls.querySelector("#flip");
 
 const cards = carousel.querySelectorAll(".card");
 
 let index = 0;
+let flipped = false;
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -24,6 +28,7 @@ for (let i = 0; i < cards.length; i++) {
   card.style.zIndex = cards.length - i - 1;
   card.style.rotate = `${Math.random() * 6 - 3}deg`;
 }
+// controls.style.zIndex = cards.length;
 
 let debounce = true;
 
@@ -32,6 +37,8 @@ async function discard() {
     return;
   }
   debounce = false;
+
+  flipped = false;
 
   cards[index].style.transform = "translateX(-300px)";
   await delay(200);
@@ -57,6 +64,12 @@ async function retrieve() {
   }
   debounce = false;
 
+  if (flipped) {
+    cards[index].style.transform = "";
+    flipped = false;
+    await delay(200);
+  }
+
   index = mod(index - 1, cards.length);
   cards[index].style.transform = "translateX(300px)";
   await delay(200);
@@ -77,5 +90,26 @@ async function retrieve() {
   debounce = true;
 }
 
+async function flip() {
+  if (!debounce) {
+    return;
+  }
+
+  debounce = true;
+
+  if (!flipped) {
+    cards[index].style.transform = "rotateY(180deg)";
+  } else {
+    cards[index].style.transform = "";
+  }
+
+  await delay(200);
+
+  flipped = !flipped;
+
+  debounce = true;
+}
+
 forward.addEventListener("click", () => discard());
 back.addEventListener("click", () => retrieve());
+flipButton.addEventListener("click", () => flip());
