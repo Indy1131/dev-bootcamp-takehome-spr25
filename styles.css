@@ -3,6 +3,16 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: green;
+}
+
+@keyframes scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
 }
 
 .container {
@@ -12,7 +22,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-image: ; */
+  background-image: url("imgs/background.png");
+  background-repeat: repeat;
+  background-size: 100px;
+  animation-name: scroll;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .carousel {
@@ -25,15 +41,27 @@ body {
   align-items: center;
 }
 
-
 #back,
 #forward {
   width: 50px;
-  height: 50px;
+  height: 100%;
   border-radius: 60px;
   border: none;
-  background-color: gray;
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
   z-index: 99;
+  transition: font-size 0.2s cubic-bezier(0.075, 0.82, 0.165, 1),
+    transform 1.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#back:hover,
+#forward:hover {
+  font-size: 30px;
+}
+
+#forward:active {
+  /* transform: translateX(100px); */
 }
 
 .cards {
@@ -53,12 +81,9 @@ body {
   transition: 0.2s transform cubic-bezier(0.455, 0.03, 0.515, 0.955);
   transform-style: preserve-3d;
 }
-/* 
-.card:hover {
-  transform: rotateY(180deg);
-} */
 
-.front, .back {
+.front,
+.back {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -76,5 +101,5 @@ body {
   top: 500px;
   text-align: center;
   width: 100%;
+  color: white;
 }
-

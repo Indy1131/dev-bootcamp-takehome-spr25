@@ -1,4 +1,5 @@
-const carousel = document.querySelector(".carousel");
+const container = document.querySelector(".container");
+const carousel = container.querySelector(".carousel");
 
 const back = carousel.querySelector("#back");
 const forward = carousel.querySelector("#forward");
@@ -118,3 +119,19 @@ async function flip() {
 
 forward.addEventListener("click", () => discard());
 back.addEventListener("click", () => retrieve());
+
+// function reset() {
+//   container.style.backgroundPosition = "0%";
+//   container.style.transition = "none";
+// }
+
+// function scroll() {
+//   container.style.transition = "background-position 2s linear";
+//   container.style.backgroundPosition = "10%";
+// }
+
+// scroll();
+// setInterval(() => {
+//   scroll();
+//   reset();
+// }, 2000);
