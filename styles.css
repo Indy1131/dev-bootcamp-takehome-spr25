@@ -12,6 +12,10 @@ body {
   color: #012C57;
 }
 
+h3 {
+  font-weight: 400;
+}
+
 @keyframes scroll {
   0% {
     background-position: 0 0;
@@ -105,6 +109,7 @@ body {
   border-radius: 19px;
   background-size: cover;
   position: relative;
+  background-position: center center;
 }
 
 .cardback h1 {
